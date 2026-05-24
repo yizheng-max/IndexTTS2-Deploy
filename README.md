@@ -2,8 +2,13 @@
 
 基于 IndexTeam 的 IndexTTS2 改进版，支持**零样本语音克隆**与**情感控制**的本地 TTS 系统。
 
-> ⚠ 本仓库仅包含源代码、配置和小文件。  
-> **大型模型文件（gpt.pth, s2mel.pth）请通过下方说明自行下载配置。**
+> ⚠ **重要说明**
+> 
+> 本 GitHub 仓库**仅包含源代码、配置和小文件**，不含大型模型文件。
+> 
+> 如果你有完整版压缩包（`IndexTTS2_Full.zip`），里面**已包含全部模型文件**，解压即可使用，无需额外下载。
+> 
+> 如果你是从 GitHub 直接克隆的，请按下方说明自行获取 `gpt.pth` 和 `s2mel.pth`。
 
 ---
 
@@ -66,16 +71,23 @@ git clone https://github.com/yizheng-max/IndexTTS2-Deploy.git
 cd IndexTTS2-Deploy
 ```
 
-### 3. 下载大型模型文件
+### 3. 准备大型模型文件
 
-将以下文件放入 `checkpoints/` 目录：
+本仓库需要以下两个大文件才能运行：
 
 | 文件 | 大小 | 说明 |
 |------|------|------|
 | `gpt.pth` | ~3.2 GB | GPT 主模型 |
 | `s2mel.pth` | ~1.1 GB | 语义→梅频谱解码器 |
 
-> **获取方式**：请从 IndexTTS2 官方发布页或你的原始安装包中复制这两个文件。
+**情况一：你有完整版压缩包**
+如果你有 `IndexTTS2_Full.zip`，解压后这两个文件已经在 `checkpoints/` 目录中，直接跳到第 4 步即可。
+
+**情况二：你是从 GitHub 克隆的**
+请从 IndexTTS2 官方发布页下载这两个文件，放入 `checkpoints/` 目录：
+- [IndexTeam/IndexTTS2 - Releases](https://github.com/IndexTeam/IndexTTS2/releases)
+
+或从你的原始安装包中复制。
 
 ### 4. 安装依赖
 
@@ -177,24 +189,14 @@ tts.infer('examples/voice_01.wav', '你好，这是测试文本。', 'outputs/re
 
 ---
 
-## 模型自动下载脚本 (PowerShell)
+## HF Hub 模型自动下载脚本 (PowerShell)
 
-如果你希望一键下载所有缺失的模型文件，运行以下脚本：
+首次运行时会自动从 HuggingFace Hub 下载 BigVGAN、MaskGCT、CAM++ 等模型。如需提前下载，运行以下脚本：
 
 ```powershell
-# download_models.ps1
-$checkpoints = "checkpoints"
-$hub = "$checkpoints\hub"
-
 # 设置 HF 镜像（可选，国内加速）
 $env:HF_ENDPOINT = "https://hf-mirror.com"
 
-# 下载 gpt.pth 和 s2mel.pth
-# ⚠ 这两个文件需要从原始发布页获取
-Write-Host "请将 gpt.pth 和 s2mel.pth 放入 checkpoints/ 目录"
-
-# HF Hub 模型会自动下载（首次运行触发）
-Write-Host "运行 Python 脚本触发模型下载..."
 python -c "
 from huggingface_hub import snapshot_download
 snapshot_download('nvidia/bigvgan_v2_22khz_80band_256x', cache_dir='./checkpoints/hub')
