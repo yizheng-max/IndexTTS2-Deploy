@@ -1,0 +1,14 @@
+gradio>=5.0.0
+fastapi>=0.110.0
+uvicorn[standard]
+transformers>=4.45.0
+soundfile>=0.12.1
+omegaconf>=2.3.0
+sentencepiece>=0.2.0
+jieba>=0.42.1
+pypinyin>=0.50.0
+librosa>=0.10.0
+einops>=0.8.0
+WeTextProcessing>=1.0.0
+pynini>=2.1.0
+huggingface-hub>=0.25.0

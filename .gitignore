@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+
+# Virtual environment
+venv/
+.venv/
+py312/
+
+# Large model checkpoints (download separately)
+checkpoints/gpt.pth
+checkpoints/s2mel.pth
+checkpoints/hub/
+
+# Downloads & temp
+tf_download/
+
+# Outputs
+outputs/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Environment
+.env
+*.env.local
